@@ -1,11 +1,12 @@
 const express = require('express')
+const notas = require('notes')
 const cors = require('cors')
 
 const app = express()
 
 app.use(cors())
-app.use(express.static('public'))
 app.use(express.json())
+app.use('/api/notes', notas)
 
 let notes = [
   {
@@ -27,11 +28,6 @@ let notes = [
     body: 'et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut'
   }
 ]
-
-// const app = http.createServer((request, response) => {
-//     response.writeHead(200, { 'Content-Type': 'text/plain'})
-//     response.end('Hello World')
-// })
 
 app.get('/', (request, response) => {
   response.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
