@@ -1,12 +1,10 @@
 const express = require('express')
-const notas = require('notes')
 const cors = require('cors')
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use('/api/notes', notas)
 
 let notes = [
   {
@@ -29,18 +27,20 @@ let notes = [
   }
 ]
 
+// const app = http.createServer((request, response) => {
+//     response.writeHead(200, { 'Content-Type': 'text/plain'})
+//     response.end('Hello World')
+// })
+
 app.get('/', (request, response) => {
-  response.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
   response.send('<h1>Hello World</h1>')
 })
 
 app.get('/api/notes', (request, response) => {
-  response.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
   response.json(notes)
 })
 
 app.get('/api/notes/:id', (request, response) => {
-  response.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
   const id = Number(request.params.id)
   const note = notes.find(note => note.id === id)
 
@@ -58,7 +58,6 @@ app.delete('/api/notes/:id', (request, response) => {
 })
 
 app.post('/api/notes', (request, response) => {
-  response.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
   const note = request.body
 
   if (!note || !note.content) {
