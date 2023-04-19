@@ -24,7 +24,7 @@ app.get('/api/notes', (request, response) => {
 app.get('/api/notes/:id', (request, response, next) => {
   const { id } = request.params
   // const note = notes.find(note => note.id === id)
-  Note.findById({ id }).then(note => {
+  Note.findById(id).then(note => {
     if (note) {
       response.json(note)
     } else {
