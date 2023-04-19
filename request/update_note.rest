@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/notes/643ee8c0fc38060be15d7c34
+Content-Type: application/json
+
+{
+    "content": "Again, nueva noting",
+    "important": true
+}

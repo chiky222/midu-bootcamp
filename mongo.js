@@ -31,3 +31,7 @@ mongoose.connect(connectionString)
 //   console.log(result)
 //   mongoose.connection.close()
 // })
+
+process.on('uncaughtException', () => {
+  mongoose.connection.disconect()
+})
