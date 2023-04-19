@@ -37,12 +37,10 @@ app.get('/api/notes/:id', (request, response, next) => {
   })
 })
 
-app.delete('/api/notes/:id', (request, response, next) => {
+app.delete('/api/notes/:id', async (request, response, next) => {
   const { id } = request.params
-  // notes = notes.filter(note => note.id !== id)
-  Note.findByIdAndDelete(id).then(() => {
-    response.status(204).end()
-  }).catch(error => next(error))
+  await Note.findByIdAndDelete(id).then(() => response.status(204).end())
+    .catch(next)
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
@@ -90,6 +88,8 @@ app.use(handleErrors) // idem al anterior
 
 const PORT = process.env.PORT || 3001
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+module.exports = { app, server }
