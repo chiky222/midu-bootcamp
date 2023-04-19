@@ -11,19 +11,15 @@ const notFound = require('./middleware/notFound.js')
 app.use(cors())
 app.use(express.json())
 
-// const notes = []
-
 app.get('/', (request, response) => {
   response.send('<h1>Hello World</h1>')
 })
 
-setTimeout(() => {
-  app.get('/api/notes', (request, response) => {
-    Note.find({}).then(notes => {
-      response.json(notes)
-    })
+app.get('/api/notes', (request, response) => {
+  Note.find({}).then(notes => {
+    response.json(notes)
   })
-}, 5000)
+})
 
 app.get('/api/notes/:id', (request, response, next) => {
   const { id } = request.params
