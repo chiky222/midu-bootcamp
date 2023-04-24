@@ -3,7 +3,11 @@ const { model, Schema } = require('mongoose')
 const noteSchema = new Schema({ // esto sería new mongoose.Schema pero al importarlo arriba hacemos q no sea necesario
   content: String,
   date: Date,
-  important: Boolean
+  important: Boolean,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 // al hacer esto, seteamos el resultado que nos llega en Note.find
